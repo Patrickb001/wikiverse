@@ -1,8 +1,6 @@
 import React from "react";
 
 export const Form = ({ submitHandler, setInputOptions, inputOptions }) => {
-  console.log(inputOptions.title);
-
   return (
     <>
       <form
@@ -31,14 +29,14 @@ export const Form = ({ submitHandler, setInputOptions, inputOptions }) => {
         />
         <input
           onChange={(e) =>
-            setInputOptions({ ...inputOptions, authorName: e.target.value })
+            setInputOptions({ ...inputOptions, name: e.target.value })
           }
           value={inputOptions.authorName}
           placeholder="Author Name"
         />
         <input
           onChange={(e) =>
-            setInputOptions({ ...inputOptions, authorEmail: e.target.value })
+            setInputOptions({ ...inputOptions, email: e.target.value })
           }
           value={inputOptions.authorEmail}
           placeholder="Author Email"

@@ -1,9 +1,22 @@
 import React from "react";
 
-export const Article = ({ setData, data }) => {
+import apiURL from "../../api";
+
+export const Article = ({ setData, data, fetchPages }) => {
   const day = new Date(data.createdAt).getUTCDate();
   const month = new Date(data.createdAt).getUTCMonth();
   const year = new Date(data.createdAt).getUTCFullYear();
+  console.log(data);
+
+  async function deleteArticle() {
+    const res = await fetch(`${apiURL}/wiki/${data.slug}`, {
+      method: "DELETE",
+    });
+    const resData = await res.json();
+
+    setData(null);
+    await fetchPages();
+  }
 
   return (
     <>
@@ -26,6 +39,7 @@ export const Article = ({ setData, data }) => {
         ))}
       </>
       <button onClick={() => setData(null)}>Back to Wiki List</button>
+      <button onClick={deleteArticle}>DELETE</button>
     </>
   );
 };

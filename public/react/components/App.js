@@ -9,8 +9,8 @@ import { Article } from "./Article/Article";
 const initialInputOptions = {
   title: "",
   content: "",
-  authorName: "",
-  authorEmail: "",
+  name: "",
+  email: "",
   tags: "",
 };
 
@@ -40,10 +40,24 @@ export const App = () => {
     }
   }
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
-    console.log(inputOptions);
+    const articleData = inputOptions;
+    const res = await fetch(`${apiURL}/wiki`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(articleData),
+    });
+    const data = await res.json();
+
+    await fetchPages();
     setIsAddingArticle(false);
+    resetFields();
+  }
+  function resetFields() {
+    setInputOptions(initialInputOptions);
   }
 
   useEffect(() => {
@@ -61,7 +75,7 @@ export const App = () => {
       ) : (
         <>
           {data ? (
-            <Article setData={setData} data={data} />
+            <Article fetchPages={fetchPages} setData={setData} data={data} />
           ) : (
             <main>
               <h1>WikiVerse</h1>
