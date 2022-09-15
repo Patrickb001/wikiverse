@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+const blankOptions = {
+  title: "",
+  content: "",
+  tags: "",
+};
 
 export const Form = ({ submitHandler, setInputOptions, inputOptions }) => {
+  useEffect(() => {
+    if (inputOptions.title != "") {
+      setInputOptions(blankOptions);
+    }
+  }, []);
+
   return (
     <>
       <form
@@ -31,14 +43,14 @@ export const Form = ({ submitHandler, setInputOptions, inputOptions }) => {
           onChange={(e) =>
             setInputOptions({ ...inputOptions, name: e.target.value })
           }
-          value={inputOptions.authorName}
+          value={inputOptions.name}
           placeholder="Author Name"
         />
         <input
           onChange={(e) =>
             setInputOptions({ ...inputOptions, email: e.target.value })
           }
-          value={inputOptions.authorEmail}
+          value={inputOptions.email}
           placeholder="Author Email"
         />
         <input

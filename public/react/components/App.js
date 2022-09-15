@@ -43,6 +43,7 @@ export const App = () => {
   async function submitHandler(e) {
     e.preventDefault();
     const articleData = inputOptions;
+    console.log(inputOptions);
     const res = await fetch(`${apiURL}/wiki`, {
       method: "POST",
       headers: {
